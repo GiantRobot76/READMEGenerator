@@ -109,7 +109,7 @@ function writeToFile() {
               </div>
               <div class="row border border-dark">
                 <h2 id="contributing">Contributing</h2>
-                <p id="contributing-text">Text Goes Here</p>
+                <p id="contributing-text">${response.contrib}</p>
               </div>
               <div class="row border border-dark">
                 <h2 id="tests">Testing</h2>
