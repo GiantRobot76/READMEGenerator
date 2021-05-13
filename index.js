@@ -1,18 +1,22 @@
+//included libraries are file service and inquirer
+
 const fs = require("fs");
 const inquirer = require("inquirer");
 
+//questions for use in inquirer input prompts
 const questions = [
   "What is the title of this project?",
   "Write a brief description of the application:",
   "Write any Applicable Installation Instructions:",
   "Once Installed, How is the Application Used?",
   "Under What License Is the Application Offered?",
-  "List Any Contributors To This Project",
+  "List Any Contributors To This Project:",
   "Describe Any Applicable Test Proecedures:",
   "What E-Mail Should Be Included for Questions?",
 ];
 
 function writeToFile() {
+  //inquirer prompt to user for all applicable information
   inquirer
     .prompt([
       {
@@ -58,6 +62,14 @@ function writeToFile() {
       },
     ])
     .then((response) => {
+      //choose applicable license badge based on user input
+      let badgeURL;
+      if (response.licenseID === "MIT") {
+        badgeURL = "https://img.shields.io/badge/License-MIT-yellow.svg";
+      } else if (response.licenseID === "Apache") {
+        badgeURL = "https://img.shields.io/badge/License-Apache%202.0-blue.svg";
+      } else badgeURL = "https://img.shields.io/badge/License-GPLv3-blue.svg";
+
       const htmlSkeleton = `<!DOCTYPE html>
         <html lang="en">
           <head>
@@ -105,7 +117,8 @@ function writeToFile() {
               </div>
               <div class="row border border-dark">
                 <h2 id="license">License</h2>
-                <p id="license-text">Offered Under the ${response.licenseID} License</p>
+                <p id="license-text">Offered Under the ${response.licenseID} License<span>  <img src="${badgeURL}"></span></p>
+              
               </div>
               <div class="row border border-dark">
                 <h2 id="contributing">Contributing</h2>
